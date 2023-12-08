@@ -51,13 +51,13 @@ public class SchedulePlan {
         ArrayList<String> target = new ArrayList<String>();
         target.add(targetF);
 
-        ArrayList<String> takenCourse = graph.Completed(inputList);
-        ArrayList<String> targetCourse = graph.Completed(target);
+        ArrayList<String> taken = graph.Completed(inputList);
+        ArrayList<String> targetC = graph.Completed(target);
 
-        for (int i = 0; i < targetCourse.size(); i++) { 
-            for(int j = i + 1; j < targetCourse.size(); j++){
-                if(targetCourse.get(i).equals(targetCourse.get(j))){
-                    targetCourse.remove(j);
+        for (int i = 0; i < targetC.size(); i++) { 
+            for(int j = i + 1; j < targetC.size(); j++){
+                if(targetC.get(i).equals(targetC.get(j))){
+                    targetC.remove(j);
                 }
             }
         }

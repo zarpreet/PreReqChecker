@@ -42,11 +42,11 @@ public class ValidPrereq {
 
         graph.Edge(course1, course2);
 
-        boolean hasCycle = graph.Cycle(course1, course2);
+        boolean has = graph.Cycle(course1, course2);
 
         StdOut.setFile(args[2]);
         
-        if(hasCycle){
+        if(has){
             StdOut.println("NO");
         } else {
             StdOut.println("YES");

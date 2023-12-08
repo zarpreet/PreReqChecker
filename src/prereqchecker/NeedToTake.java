@@ -74,33 +74,6 @@ public class NeedToTake {
         }
     }
 
-    public static ArrayList<String> needToTake(ArrayList<String> taken, ArrayList<String> needToTake, classes courseW, ArrayList<classes> DONE) {
-        ArrayList<String> requirementsNeeded = courseW.getPreReqs();
-        classes classIterate = null;
-        if (!taken.contains(courseW.getName())) {
-            for (int i = 0; i < requirementsNeeded.size(); i++) {
-                String hold = requirementsNeeded.get(i);
-                if (taken.contains(hold)) {
-                    continue;
-                }
-                for(int m = 0; m < DONE.size(); m++) {
-                    if(DONE.get(m).getName().equals(hold)) {
-                        classIterate = DONE.get(m);
-                    }
-                }
-                courseW = classIterate;
-                needToTake.add(hold);
-                ArrayList<String> neededCourses = needToTake(taken, needToTake, courseW, DONE);
-                needToTake.addAll(neededCourses);
-            }
-        } else {
-
-            return needToTake;
-
-        }
-        return needToTake;
-    }
-
     public static ArrayList<String> classesTaken(ArrayList<classes> adjList) {
         int courseSize = Integer.parseInt(StdIn.readLine());
         ArrayList<String> done = new ArrayList<String>();
@@ -144,6 +117,33 @@ public class NeedToTake {
 
         return form;
 
+    }
+
+    public static ArrayList<String> needToTake(ArrayList<String> taken, ArrayList<String> needToTake, classes courseW, ArrayList<classes> DONE) {
+        ArrayList<String> requirementsNeeded = courseW.getPreReqs();
+        classes classIterate = null;
+        if (!taken.contains(courseW.getName())) {
+            for (int i = 0; i < requirementsNeeded.size(); i++) {
+                String hold = requirementsNeeded.get(i);
+                if (taken.contains(hold)) {
+                    continue;
+                }
+                for(int m = 0; m < DONE.size(); m++) {
+                    if(DONE.get(m).getName().equals(hold)) {
+                        classIterate = DONE.get(m);
+                    }
+                }
+                courseW = classIterate;
+                needToTake.add(hold);
+                ArrayList<String> neededCourses = needToTake(taken, needToTake, courseW, DONE);
+                needToTake.addAll(neededCourses);
+            }
+        } else {
+
+            return needToTake;
+
+        }
+        return needToTake;
     }
 
     public static ArrayList<String> classesTaken(ArrayList<classes> result, classes currentCourse, ArrayList<String> needed) {
