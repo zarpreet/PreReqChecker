@@ -39,33 +39,33 @@ public class Eligible {
         AdjList graph = new AdjList();
 
         StdIn.setFile(args[1]);
-        int numCourses = StdIn.readInt();
+        int num = StdIn.readInt();
         StdIn.readLine();
         ArrayList<String> courses = new ArrayList<String>();
 
-        for(int i = 0; i < numCourses; i++){
+        for(int i = 0; i < num; i++){
             courses.add(StdIn.readLine());
         }
 
-        ArrayList<String> prereqList = graph.Completed(courses);
+        ArrayList<String> prereq = graph.Completed(courses);
 
         StdOut.setFile(args[2]);
         HashMap<String, ArrayList<String>> adjList = graph.getGraph();
         for(String key : adjList.keySet()){
 
-            boolean isEligible = true;
+            boolean Eligible = true;
 
-            if(prereqList.contains(key)){ 
+            if(prereq.contains(key)){ 
                 continue;
             }
 
             for(int i = 1; i < adjList.get(key).size(); i++){
-                if(!prereqList.contains(adjList.get(key).get(i))){
-                    isEligible = false;
+                if(!prereq.contains(adjList.get(key).get(i))){
+                    Eligible = false;
                     break;
                 }
             }
-            if(isEligible){
+            if(Eligible){
                 StdOut.println(key);
             }
         }

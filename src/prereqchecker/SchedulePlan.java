@@ -62,34 +62,34 @@ public class SchedulePlan {
             }
         }
 
-        targetCourse.remove(0);
+        targetC.remove(0);
 
-        for(int i = 0; i < takenCourse.size(); i++) {
-            targetCourse.remove(takenCourse.get(i));
+        for(int i = 0; i < taken.size(); i++) {
+            targetC.remove(taken.get(i));
         }
 
         ArrayList<ArrayList<String>> courseSem = new ArrayList<ArrayList<String>>();
         HashMap<String, ArrayList<String>> adjList = graph.getGraph();
 
-        while(targetCourse.size() != 0){
+        while(targetC.size() != 0){
             ArrayList<String> semester = new ArrayList<String>();
 
-            for(int i = 0; i < targetCourse.size(); i++){
+            for(int i = 0; i < targetC.size(); i++){
                 boolean completed = true;
-                for(int j = 1; j < adjList.get(targetCourse.get(i)).size(); j++){
-                    if(targetCourse.contains(adjList.get(targetCourse.get(i)).get(j))){
+                for(int j = 1; j < adjList.get(targetC.get(i)).size(); j++){
+                    if(targetC.contains(adjList.get(targetC.get(i)).get(j))){
                         completed = false; 
                         break;
                     }
 
                 }
                 if(completed){
-                    semester.add(targetCourse.get(i));
+                    semester.add(targetC.get(i));
                 }
             }
 
             for(String course : semester){
-                targetCourse.remove(course);
+                targetC.remove(course);
             }
 
             courseSem.add(semester);

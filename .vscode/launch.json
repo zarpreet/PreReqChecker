@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SchedulePlan",
+            "request": "launch",
+            "mainClass": "prereqchecker.SchedulePlan",
+            "projectName": "PreReqChecker_2db9ca4a"
+        },
+        {
+            "type": "java",
             "name": "NeedToTake",
             "request": "launch",
             "mainClass": "prereqchecker.NeedToTake",
