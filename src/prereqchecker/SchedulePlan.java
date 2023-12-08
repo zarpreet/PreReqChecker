@@ -40,66 +40,66 @@ public class SchedulePlan {
         AdjList graph = new AdjList();
 
         StdIn.setFile(args[1]);
-        String targetCourse = StdIn.readLine();
-        int numTakenCourses = StdIn.readInt();
+        String targetF = StdIn.readLine();
+        int numTaken = StdIn.readInt();
         StdIn.readLine();
         ArrayList<String> inputList = new ArrayList<String>();
-        for (int i = 0; i < numTakenCourses; i++) {
+        for (int i = 0; i < numTaken; i++) {
             inputList.add(StdIn.readLine());
         }
 
         ArrayList<String> target = new ArrayList<String>();
-        target.add(targetCourse);
+        target.add(targetF);
 
-        ArrayList<String> takenCourseList = graph.Completed(inputList);
-        ArrayList<String> targetCourseList = graph.Completed(target);
+        ArrayList<String> takenCourse = graph.Completed(inputList);
+        ArrayList<String> targetCourse = graph.Completed(target);
 
-        for (int i = 0; i < targetCourseList.size(); i++) { 
-            for(int j = i + 1; j < targetCourseList.size(); j++){
-                if(targetCourseList.get(i).equals(targetCourseList.get(j))){
-                    targetCourseList.remove(j);
+        for (int i = 0; i < targetCourse.size(); i++) { 
+            for(int j = i + 1; j < targetCourse.size(); j++){
+                if(targetCourse.get(i).equals(targetCourse.get(j))){
+                    targetCourse.remove(j);
                 }
             }
         }
 
-        targetCourseList.remove(0);
+        targetCourse.remove(0);
 
-        for(int i = 0; i < takenCourseList.size(); i++) {
-            targetCourseList.remove(takenCourseList.get(i));
+        for(int i = 0; i < takenCourse.size(); i++) {
+            targetCourse.remove(takenCourse.get(i));
         }
 
-        ArrayList<ArrayList<String>> courseSemester = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> courseSem = new ArrayList<ArrayList<String>>();
         HashMap<String, ArrayList<String>> adjList = graph.getGraph();
 
-        while(targetCourseList.size() != 0){
+        while(targetCourse.size() != 0){
             ArrayList<String> semester = new ArrayList<String>();
 
-            for(int i = 0; i < targetCourseList.size(); i++){
+            for(int i = 0; i < targetCourse.size(); i++){
                 boolean completed = true;
-                for(int j = 1; j < adjList.get(targetCourseList.get(i)).size(); j++){
-                    if(targetCourseList.contains(adjList.get(targetCourseList.get(i)).get(j))){
+                for(int j = 1; j < adjList.get(targetCourse.get(i)).size(); j++){
+                    if(targetCourse.contains(adjList.get(targetCourse.get(i)).get(j))){
                         completed = false; 
                         break;
                     }
 
                 }
                 if(completed){
-                    semester.add(targetCourseList.get(i));
+                    semester.add(targetCourse.get(i));
                 }
             }
 
             for(String course : semester){
-                targetCourseList.remove(course);
+                targetCourse.remove(course);
             }
 
-            courseSemester.add(semester);
+            courseSem.add(semester);
         }
 
         StdOut.setFile(args[2]);
-        StdOut.println(courseSemester.size());
-        for(int i = 0; i < courseSemester.size(); i++){
-            for(int j = 0; j < courseSemester.get(i).size(); j++){
-                StdOut.print(courseSemester.get(i).get(j) + " ");
+        StdOut.println(courseSem.size());
+        for(int i = 0; i < courseSem.size(); i++){
+            for(int j = 0; j < courseSem.get(i).size(); j++){
+                StdOut.print(courseSem.get(i).get(j) + " ");
             }
             StdOut.println();
         }

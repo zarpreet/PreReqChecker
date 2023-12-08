@@ -38,33 +38,33 @@ public class NeedToTake {
         StdIn.setFile(args[0]);
         StdOut.setFile(args[2]);
 
-        ArrayList<classes> finalForm = finalForm();
+        ArrayList<classes> result = result();
         StdIn.setFile(args[1]);
-        String courseWanted = StdIn.readLine();
+        String courseW = StdIn.readLine();
 
-        ArrayList<String> requiredClasses = new ArrayList<String>();
-        ArrayList<String> tempList = new ArrayList<String>(); 
+        ArrayList<String> required = new ArrayList<String>();
+        ArrayList<String> temp = new ArrayList<String>(); 
 
         classes targetCourse = null;
 
-        for (int m = 0; m < finalForm.size(); m++) {
-            if (!finalForm.get(m).getName().equals(courseWanted))
+        for (int m = 0; m < result.size(); m++) {
+            if (!result.get(m).getName().equals(courseW))
                 continue;
             else
-                targetCourse = finalForm.get(m);
+                targetCourse = result.get(m);
         }
 
-        ArrayList<String> taken = classesTaken(finalForm);
+        ArrayList<String> taken = classesTaken(result);
 
-        requiredClasses = needToTake(taken, requiredClasses, targetCourse, finalForm);
+        required = needToTake(taken, required, targetCourse, result);
 
-        for (String course : requiredClasses) {
-            if (!tempList.contains(course))
-                tempList.add(course);
+        for (String course : required) {
+            if (!temp.contains(course))
+                temp.add(course);
                 
         }
 
-        printList(tempList);
+        printList(temp);
 
     } 
 
@@ -74,23 +74,23 @@ public class NeedToTake {
         }
     }
 
-    public static ArrayList<String> needToTake(ArrayList<String> taken, ArrayList<String> needToTake, classes courseWanted, ArrayList<classes> DONE) {
-        ArrayList<String> requirementsNeeded = courseWanted.getPreReqs();
+    public static ArrayList<String> needToTake(ArrayList<String> taken, ArrayList<String> needToTake, classes courseW, ArrayList<classes> DONE) {
+        ArrayList<String> requirementsNeeded = courseW.getPreReqs();
         classes classIterate = null;
-        if (!taken.contains(courseWanted.getName())) {
+        if (!taken.contains(courseW.getName())) {
             for (int i = 0; i < requirementsNeeded.size(); i++) {
-                String HOLDIT = requirementsNeeded.get(i);
-                if (taken.contains(HOLDIT)) {
+                String hold = requirementsNeeded.get(i);
+                if (taken.contains(hold)) {
                     continue;
                 }
                 for(int m = 0; m < DONE.size(); m++) {
-                    if(DONE.get(m).getName().equals(HOLDIT)) {
+                    if(DONE.get(m).getName().equals(hold)) {
                         classIterate = DONE.get(m);
                     }
                 }
-                courseWanted = classIterate;
-                needToTake.add(HOLDIT);
-                ArrayList<String> neededCourses = needToTake(taken, needToTake, courseWanted, DONE);
+                courseW = classIterate;
+                needToTake.add(hold);
+                ArrayList<String> neededCourses = needToTake(taken, needToTake, courseW, DONE);
                 needToTake.addAll(neededCourses);
             }
         } else {
@@ -104,11 +104,11 @@ public class NeedToTake {
     public static ArrayList<String> classesTaken(ArrayList<classes> adjList) {
         int courseSize = Integer.parseInt(StdIn.readLine());
         ArrayList<String> done = new ArrayList<String>();
-        ArrayList<String> FORM = new ArrayList<String>();
+        ArrayList<String> form = new ArrayList<String>();
 
         for (int i = 0; i < courseSize; i++) {
-            String HOLDIT = StdIn.readLine();
-            done.add(HOLDIT);
+            String hold = StdIn.readLine();
+            done.add(hold);
         }
 
         for (int i = 0; i < done.size(); i++) {
@@ -125,47 +125,47 @@ public class NeedToTake {
             ArrayList<String> needed = new ArrayList<String>();
             needed = classesTaken(adjList, currentCourse, needed);
 
-            FORM.add(name);
-            FORM.addAll(needed);
+            form.add(name);
+            form.addAll(needed);
 
         }
 
         int zero = 0; 
         ArrayList<String> coursesDone = new ArrayList<String>();
         if(zero != 0) {
-        FORM = traverseAdd(coursesDone);
+        form = traverseAdd(coursesDone);
 
         }
         for (String element : coursesDone) {
-            if (!FORM.contains(element)) {
-                FORM.add(element);
+            if (!form.contains(element)) {
+                form.add(element);
             }
         }
 
-        return FORM;
+        return form;
 
     }
 
-    public static ArrayList<String> classesTaken(ArrayList<classes> finalForm, classes currentCourse, ArrayList<String> needed) {
+    public static ArrayList<String> classesTaken(ArrayList<classes> result, classes currentCourse, ArrayList<String> needed) {
         
-        String HOLDIT;
-        classes courseWanted; 
+        String hold;
+        classes courseW; 
 
         if (!currentCourse.getPreReqs().isEmpty()) { 
             needed.addAll(currentCourse.getPreReqs());
             ArrayList<String> neededList = currentCourse.getPreReqs();
             for (int i = 0; i < neededList.size(); i++) {
 
-                HOLDIT = neededList.get(i);
-                courseWanted = null;
+                hold = neededList.get(i);
+                courseW = null;
 
-                for (int m= 0; m < finalForm.size(); m++) {
-                    if (finalForm.get(m).getName().equals(HOLDIT)) {
-                        courseWanted = finalForm.get(m);
+                for (int m= 0; m < result.size(); m++) {
+                    if (result.get(m).getName().equals(hold)) {
+                        courseW = result.get(m);
                     }
                 }
-                ArrayList<String> finalList = classesTaken(finalForm, courseWanted, needed);
-                needed.addAll(finalList);
+                ArrayList<String> finalL = classesTaken(result, courseW, needed);
+                needed.addAll(finalL);
             }
 
         } else if(currentCourse.getPreReqs().isEmpty()){
@@ -175,7 +175,7 @@ public class NeedToTake {
         return needed;
     }
 
-    public static ArrayList<classes> finalForm() {
+    public static ArrayList<classes> result() {
         int courseNum = StdIn.readInt();
 
         String courseTitle = StdIn.readLine();
@@ -216,17 +216,17 @@ public class NeedToTake {
         return newList;
     }
 
-    public static classes getCourseWanted(ArrayList<classes> done) {
+    public static classes getcourseW(ArrayList<classes> done) {
 
         String readCourse = StdIn.readLine();
-        classes courseWanted = null;
+        classes courseW = null;
 
         for (int i = 0; i < done.size(); i++) {
             if (done.get(i).getName().equals(readCourse))
-                courseWanted = done.get(i);
+                courseW = done.get(i);
         }
 
-        return courseWanted;
+        return courseW;
 
     }
     
